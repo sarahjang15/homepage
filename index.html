@@ -1,13 +1,85 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seoyun's GitHub Pages Workshop</title>
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <h1>Hello My Name is Seoyun Jang.</h1>
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
+    <div class="bg-orb orb-one" aria-hidden="true"></div>
+    <div class="bg-orb orb-two" aria-hidden="true"></div>
+
+    <header class="navbar container-lg">
+      <a class="brand" href="#home">SYJ Lab</a>
+      <button class="btn btn-ghost mobile-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="mainNav">
+        Menu
+      </button>
+      <nav class="nav" id="mainNav">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#items" class="nav-link">Items</a>
+      </nav>
+    </header>
+
+    <main class="container-lg stack-lg" id="home">
+      <section class="hero card p-4" id="about">
+        <span class="badge">GitHub Pages Practice</span>
+        <h1 class="display">Hello, My Name is Seoyun Jang.</h1>
+        <p class="lead">
+          This page uses a custom CSS utility system inspired by Bootstrap concepts
+          like containers, cards, buttons, and spacing classes.
+        </p>
+        <div class="row gap-2 mt-3">
+          <button class="btn btn-primary" id="themeBtn">Toggle Theme</button>
+          <button class="btn btn-outline" id="pulseBtn">Animate Card</button>
+        </div>
+      </section>
+
+      <section class="card p-4" id="items">
+        <div class="row between center mb-2">
+          <h2 class="h3 m-0">Workshop Items</h2>
+          <span class="small-text" id="itemCount">3 items</span>
+        </div>
+
+        <form class="row gap-2 mb-3" id="itemForm">
+          <input
+            type="text"
+            id="itemInput"
+            class="input flex-1"
+            placeholder="Add a new item"
+            aria-label="Add a new item"
+          />
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
+        <div class="row gap-2 mb-2">
+          <button class="btn btn-ghost filter-btn is-active" data-filter="all">All</button>
+          <button class="btn btn-ghost filter-btn" data-filter="active">Active</button>
+          <button class="btn btn-ghost filter-btn" data-filter="done">Done</button>
+        </div>
+
+        <ul class="list" id="itemList">
+          <li class="list-item" data-status="active">
+            <button class="check-btn" aria-label="Mark Item 1 done">○</button>
+            <span>Item 1</span>
+            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 1">Remove</button>
+          </li>
+          <li class="list-item" data-status="active">
+            <button class="check-btn" aria-label="Mark Item 2 done">○</button>
+            <span>Item 2</span>
+            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 2">Remove</button>
+          </li>
+          <li class="list-item" data-status="active">
+            <button class="check-btn" aria-label="Mark Item 3 done">○</button>
+            <span>Item 3</span>
+            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 3">Remove</button>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="main.js"></script>
   </body>
 </html>
