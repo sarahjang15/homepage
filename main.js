@@ -2,18 +2,19 @@ const body = document.body;
 const nav = document.getElementById("mainNav");
 const menuBtn = document.getElementById("mobileMenuBtn");
 const themeBtn = document.getElementById("themeBtn");
-const pulseBtn = document.getElementById("pulseBtn");
-const heroCard = document.querySelector(".hero");
-const itemForm = document.getElementById("itemForm");
-const itemInput = document.getElementById("itemInput");
-const itemList = document.getElementById("itemList");
-const filterButtons = document.querySelectorAll(".filter-btn");
-const countLabel = document.getElementById("itemCount");
+const pubList = document.getElementById("pubList");
+const pubFilterButtons = document.querySelectorAll(".pub-filter");
 const toast = document.getElementById("toast");
+const revealSections = document.querySelectorAll(".reveal");
+const navLinks = document.querySelectorAll(".nav-link");
 
-let activeFilter = "all";
+let activePublicationFilter = "all";
 
 function showToast(message) {
+  if (!toast) {
+    return;
+  }
+
   toast.textContent = message;
   toast.classList.add("show");
   window.clearTimeout(showToast.timer);
@@ -22,32 +23,17 @@ function showToast(message) {
   }, 1400);
 }
 
-function updateCount() {
-  const total = itemList.querySelectorAll(".list-item").length;
-  countLabel.textContent = `${total} item${total === 1 ? "" : "s"}`;
-}
+function applyPublicationFilter(filterName) {
+  activePublicationFilter = filterName;
+  if (!pubList) {
+    return;
+  }
 
-function applyFilter(filter) {
-  activeFilter = filter;
-  itemList.querySelectorAll(".list-item").forEach((item) => {
-    const isDone = item.dataset.status === "done";
-    const visible =
-      filter === "all" || (filter === "done" && isDone) || (filter === "active" && !isDone);
+  pubList.querySelectorAll(".list-item").forEach((item) => {
+    const category = item.dataset.pub;
+    const visible = filterName === "all" || category === filterName;
     item.style.display = visible ? "flex" : "none";
   });
-}
-
-function createItem(label) {
-  const li = document.createElement("li");
-  li.className = "list-item";
-  li.dataset.status = "active";
-  li.innerHTML = `
-    <button class="check-btn" aria-label="Mark ${label} done">○</button>
-    <span></span>
-    <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove ${label}">Remove</button>
-  `;
-  li.querySelector("span").textContent = label;
-  return li;
 }
 
 menuBtn?.addEventListener("click", () => {
@@ -62,63 +48,83 @@ themeBtn?.addEventListener("click", () => {
   showToast(isNight ? "Night theme on" : "Day theme on");
 });
 
-pulseBtn?.addEventListener("click", () => {
-  heroCard.classList.remove("pulse");
-  window.requestAnimationFrame(() => {
-    heroCard.classList.add("pulse");
-  });
-});
-
-itemForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const label = itemInput.value.trim();
-  if (!label) {
-    showToast("Please enter an item name.");
-    return;
-  }
-
-  const newItem = createItem(label);
-  itemList.appendChild(newItem);
-  itemInput.value = "";
-  updateCount();
-  applyFilter(activeFilter);
-  showToast(`Added: ${label}`);
-});
-
-itemList?.addEventListener("click", (event) => {
-  const target = event.target;
-  if (!(target instanceof HTMLElement)) {
-    return;
-  }
-
-  const item = target.closest(".list-item");
-  if (!item) {
-    return;
-  }
-
-  if (target.classList.contains("check-btn")) {
-    const done = item.dataset.status === "done";
-    item.dataset.status = done ? "active" : "done";
-    target.textContent = done ? "○" : "✓";
-    applyFilter(activeFilter);
-    return;
-  }
-
-  if (target.classList.contains("remove-btn")) {
-    const text = item.querySelector("span")?.textContent || "Item";
-    item.remove();
-    updateCount();
-    showToast(`Removed: ${text}`);
-  }
-});
-
-filterButtons.forEach((button) => {
+pubFilterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    filterButtons.forEach((btn) => btn.classList.remove("is-active"));
+    pubFilterButtons.forEach((btn) => btn.classList.remove("is-active"));
     button.classList.add("is-active");
-    applyFilter(button.dataset.filter || "all");
+    applyPublicationFilter(button.dataset.pubFilter || "all");
   });
 });
 
-updateCount();
-applyFilter(activeFilter);
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+      }
+    });
+  },
+  {
+    threshold: 0.2,
+  }
+);
+
+revealSections.forEach((section) => {
+  revealObserver.observe(section);
+});
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      const activeId = entry.target.id;
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === `#${activeId}`;
+        link.classList.toggle("active", isActive);
+      });
+    });
+  },
+  {
+    rootMargin: "-35% 0px -50% 0px",
+  }
+);
+
+document.querySelectorAll("main section[id]").forEach((section) => {
+  sectionObserver.observe(section);
+});
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuBtn?.setAttribute("aria-expanded", "false");
+  });
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "t" || event.key === "T") {
+    if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+
+    body.classList.toggle("theme-night");
+    const isNight = body.classList.contains("theme-night");
+    showToast(isNight ? "Night theme on" : "Day theme on");
+  }
+  if (event.key === "Escape") {
+    nav.classList.remove("open");
+    menuBtn?.setAttribute("aria-expanded", "false");
+  }
+});
+
+themeBtn?.addEventListener("mouseenter", () => {
+  if (!body.classList.contains("theme-night")) {
+    themeBtn.classList.add("pulse");
+    window.setTimeout(() => themeBtn.classList.remove("pulse"), 500);
+    return;
+  }
+});
+
+applyPublicationFilter(activePublicationFilter);

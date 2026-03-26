@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seoyun's GitHub Pages Workshop</title>
+    <title>Seoyun Jang | Graduate Student Portfolio</title>
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
@@ -11,71 +11,130 @@
     <div class="bg-orb orb-two" aria-hidden="true"></div>
 
     <header class="navbar container-lg">
-      <a class="brand" href="#home">SYJ Lab</a>
+      <a class="brand" href="#home">Seoyun Jang</a>
       <button class="btn btn-ghost mobile-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="mainNav">
         Menu
       </button>
       <nav class="nav" id="mainNav">
         <a href="#home" class="nav-link">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#items" class="nav-link">Items</a>
+        <a href="#research" class="nav-link">Research</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#publications" class="nav-link">Publications</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
     </header>
 
     <main class="container-lg stack-lg" id="home">
-      <section class="hero card p-4" id="about">
-        <span class="badge">GitHub Pages Practice</span>
-        <h1 class="display">Hello, My Name is Seoyun Jang.</h1>
+      <section class="hero card p-4 reveal" id="about">
+        <span class="badge">M.S. Student Candidate</span>
+        <h1 class="display">Graduate Portfolio & Curriculum Vitae</h1>
         <p class="lead">
-          This page uses a custom CSS utility system inspired by Bootstrap concepts
-          like containers, cards, buttons, and spacing classes.
+          I am Seoyun Jang, a graduate student focused on human-centered computing,
+          machine learning for education, and data-informed product design.
+        </p>
+        <p class="small-text mt-3">
+          Seoul, Republic of Korea | seoyun.jang@example.com | +82-10-1234-5678
         </p>
         <div class="row gap-2 mt-3">
-          <button class="btn btn-primary" id="themeBtn">Toggle Theme</button>
-          <button class="btn btn-outline" id="pulseBtn">Animate Card</button>
+          <a class="btn btn-primary" href="#contact">Contact Me</a>
+          <a class="btn btn-outline" href="#">Download CV</a>
+          <button class="btn btn-ghost" id="themeBtn" type="button">Toggle Theme</button>
         </div>
       </section>
 
-      <section class="card p-4" id="items">
+      <section class="card p-4 reveal" id="research">
+        <h2 class="h3 m-0">Research Interests</h2>
+        <p class="lead">
+          Learning analytics, NLP for education, and trustworthy AI systems for student support.
+        </p>
+        <ul class="chip-list mt-3">
+          <li>Educational Data Mining</li>
+          <li>Natural Language Processing</li>
+          <li>Human-AI Interaction</li>
+          <li>Learning Experience Design</li>
+        </ul>
+      </section>
+
+      <section class="card p-4 reveal" id="projects">
+        <h2 class="h3 m-0">Selected Projects</h2>
+        <div class="project-grid mt-3">
+          <article class="project-item">
+            <h3>Academic Feedback Classifier</h3>
+            <p>Built a Korean-English text classifier to group student feedback and visualize trends for instructors.</p>
+            <span class="small-text">Python, scikit-learn, Plotly</span>
+          </article>
+          <article class="project-item">
+            <h3>Student Progress Dashboard</h3>
+            <p>Designed and evaluated an analytics dashboard for weekly assignment engagement and dropout risk cues.</p>
+            <span class="small-text">JavaScript, D3.js, UX Research</span>
+          </article>
+          <article class="project-item">
+            <h3>Conversational Study Assistant</h3>
+            <p>Prototyped a retrieval-assisted chatbot for course Q&A with source citations and confidence tags.</p>
+            <span class="small-text">LLM APIs, RAG, Prompt Engineering</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="card p-4 reveal" id="publications">
         <div class="row between center mb-2">
-          <h2 class="h3 m-0">Workshop Items</h2>
-          <span class="small-text" id="itemCount">3 items</span>
+          <h2 class="h3 m-0">Publications & Presentations</h2>
+          <div class="row gap-2">
+            <button class="btn btn-ghost pub-filter is-active" data-pub-filter="all" type="button">All</button>
+            <button class="btn btn-ghost pub-filter" data-pub-filter="journal" type="button">Journal</button>
+            <button class="btn btn-ghost pub-filter" data-pub-filter="conference" type="button">Conference</button>
+          </div>
         </div>
 
-        <form class="row gap-2 mb-3" id="itemForm">
-          <input
-            type="text"
-            id="itemInput"
-            class="input flex-1"
-            placeholder="Add a new item"
-            aria-label="Add a new item"
-          />
-          <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-
-        <div class="row gap-2 mb-2">
-          <button class="btn btn-ghost filter-btn is-active" data-filter="all">All</button>
-          <button class="btn btn-ghost filter-btn" data-filter="active">Active</button>
-          <button class="btn btn-ghost filter-btn" data-filter="done">Done</button>
-        </div>
-
-        <ul class="list" id="itemList">
-          <li class="list-item" data-status="active">
-            <button class="check-btn" aria-label="Mark Item 1 done">○</button>
-            <span>Item 1</span>
-            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 1">Remove</button>
+        <ul class="list" id="pubList">
+          <li class="list-item" data-pub="journal">
+            <span>
+              Jang, S., Kim, H. (2026). Adaptive Feedback Summarization for Large Enrollment Courses.
+              <i>Journal of Learning Analytics</i>.
+            </span>
           </li>
-          <li class="list-item" data-status="active">
-            <button class="check-btn" aria-label="Mark Item 2 done">○</button>
-            <span>Item 2</span>
-            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 2">Remove</button>
+          <li class="list-item" data-pub="conference">
+            <span>
+              Jang, S., Lee, M. (2025). Multilingual Learning Behavior Signals from LMS Activity Logs.
+              <i>Proceedings of LAK 2025</i>.
+            </span>
           </li>
-          <li class="list-item" data-status="active">
-            <button class="check-btn" aria-label="Mark Item 3 done">○</button>
-            <span>Item 3</span>
-            <button class="btn btn-ghost btn-sm remove-btn" aria-label="Remove Item 3">Remove</button>
+          <li class="list-item" data-pub="conference">
+            <span>
+              Jang, S. (2024). Explainable Student Risk Indicators in Weekly Coursework.
+              <i>Korean HCI Conference</i>.
+            </span>
           </li>
         </ul>
+      </section>
+
+      <section class="card p-4 reveal" id="experience">
+        <h2 class="h3 m-0">Education & Experience</h2>
+        <div class="timeline mt-3">
+          <article>
+            <h3>M.S. in Human-Computer Interaction (Expected 2027)</h3>
+            <p class="small-text">Graduate School of XX University</p>
+          </article>
+          <article>
+            <h3>Research Assistant, Learning Technology Lab</h3>
+            <p class="small-text">2025 - Present | Data analysis, literature review, and prototype evaluation</p>
+          </article>
+          <article>
+            <h3>B.S. in Computer Science</h3>
+            <p class="small-text">2021 - 2025 | XX University</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card p-4 reveal" id="contact">
+        <h2 class="h3 m-0">Contact</h2>
+        <p class="lead">Open to research collaboration, internships, and graduate exchange opportunities.</p>
+        <div class="row gap-2 mt-3">
+          <a class="btn btn-primary" href="mailto:seoyun.jang@example.com">Email</a>
+          <a class="btn btn-outline" href="#">Google Scholar</a>
+          <a class="btn btn-outline" href="#">GitHub</a>
+          <a class="btn btn-outline" href="#">LinkedIn</a>
+        </div>
       </section>
     </main>
 
